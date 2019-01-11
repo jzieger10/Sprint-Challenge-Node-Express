@@ -16,12 +16,25 @@ router
 	})
 	.post((req, res) => {
 		let newPost = req.body;
-		actionModel
-			.insert(newPost)
-			.then(actions => {
-				res.status(201).json({ actions });
-			})
-			.catch(res.status(500));
+		if (
+			req.body.project_id &&
+			req.body.description &&
+			req.body.notes &&
+			req.body.description.length <= 128
+		) {
+			actionModel
+				.insert(newPost)
+				.then(actions => {
+					res.status(201).json({ actions });
+				})
+				.catch(res.status(500));
+		} else {
+            res.status(400).json({
+				Error:
+					"You must include: 1) An ID number of an existing project  2) A description for this action that is shorter than 128 characters  3) Notes for this action",
+				Status_Code: 400,
+			});
+        }
 	});
 
 router
