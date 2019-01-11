@@ -50,10 +50,7 @@ router
 				.then(project => {
 					res.status(201).json({ project });
 				})
-				.catch(
-					res
-						.status(500)
-				);
+				.catch(res.status(500));
 		} else {
 			res.status(404).json({
 				Error: "The requested ID cannot be found",
@@ -61,26 +58,26 @@ router
 			});
 		}
 	})
-	.get((req, res) => {
-		const id = req.params.id;
-		if (id) {
-			projectModel
-				.getProjectActions(id)
-				.then(project => {
-					res.status(201).json({ project });
-				})
-				.catch(
-					res
-						.status(500)
-						.json({ Error: "Project id GET > Server Error" })
-				);
-		} else {
-			res.status(404).json({
-				Error: "The requested ID cannot be found",
-				Status_Code: 404,
-			});
-		}
-	})
+	// .get((req, res) => {
+	// 	const id = req.params.id;
+	// 	if (id) {
+	// 		projectModel
+	// 			.getProjectActions(id)
+	// 			.then(project => {
+	// 				res.status(201).json({ project });
+	// 			})
+	// 			.catch(
+	// 				res
+	// 					.status(500)
+	// 					.json({ Error: "Project id GET > Server Error" })
+	// 			);
+	// 	} else {
+	// 		res.status(404).json({
+	// 			Error: "The requested ID cannot be found",
+	// 			Status_Code: 404,
+	// 		});
+	// 	}
+	// })
 	.put((req, res) => {
 		const id = req.params.id;
 		const changes = req.body;
@@ -101,4 +98,22 @@ router
 			.catch(res.status(500));
 	});
 
+router.route("/:id/actions").get((req, res) => {
+	const id = req.params.id;
+	if (id) {
+		projectModel
+			.getProjectActions(id)
+			.then(actions => {
+				res.status(201).json({ actions });
+			})
+			.catch(
+				res.status(500).json({ Error: "Action id GET > Server Error" })
+			);
+	} else {
+		res.status(404).json({
+			Error: "The requested ID cannot be found",
+			Status_Code: 404,
+		});
+	}
+});
 module.exports = router;

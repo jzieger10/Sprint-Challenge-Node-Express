@@ -6,11 +6,12 @@ import styled from "styled-components";
 import "./App.css";
 import ProjectList from "./components/Projects/ProjectList";
 import Project from "./components/Projects/Project";
+import ActionList from "./components/Projects/ActionList";
 
 const NavBar = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-  justify-content: flex-end;
+	justify-content: flex-end;
 	background-color: #0051cc;
 	color: #fff;
 	padding: 20px;
@@ -69,6 +70,19 @@ class App extends Component {
 					path="/projects/:id"
 					render={props => (
 						<Project
+							{...props}
+							projects={this.state.projects}
+							id={this.props}
+						/>
+					)}
+				/>
+
+				<Route
+					exact
+					path="/projects/:id/actions"
+					render={props => (
+						
+						<ActionList
 							{...props}
 							projects={this.state.projects}
 							id={this.props}
