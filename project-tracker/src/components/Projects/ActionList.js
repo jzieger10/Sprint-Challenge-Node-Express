@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 class ActionList extends React.Component {
 	constructor(props) {
@@ -28,7 +28,7 @@ class ActionList extends React.Component {
 				<div className="actions-container">
                     
 					{this.state.actions.map(action => (
-						<div className="action-container">
+						<div className="action-container" key={action.id}>
 							<h4>{action.description}</h4>
 							<p>{action.notes}</p>
 							<p>{action.completed}</p>

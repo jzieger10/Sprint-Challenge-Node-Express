@@ -45,8 +45,8 @@ const ProjectList = props => {
 		<ProjectListContainer>
 			<h1>Project List</h1>
 			{props.projects.map(project => (
-				<a href={`projects/${project.id}`}>
-					<div className="project-card">
+				<a href={`projects/${project.id}`} key={project.id}>
+					<div className="project-card" >
 						<h4>Project #{project.id}</h4>
 						<h3>{project.name}</h3>
 					</div>
